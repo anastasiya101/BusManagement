@@ -1,4 +1,7 @@
+import edu.princeton.cs.algs4.*;
+
 import java.util.Scanner;
+
 
 public class main {
     public static void main(String[] args) {
@@ -37,7 +40,7 @@ public class main {
                 }
             }
         }
-        
+
     }
 
     public static void findShortestPath() {
@@ -50,13 +53,14 @@ public class main {
         if (scanner.hasNext()){
             String input = scanner.next();
             int count = 0;
-            for (String string : TST.keysWithPrefix(input.toUpperCase())) {
+            /for (String string : TST.keysWithPrefix(input.toUpperCase())) {
                 count++;
                 System.out.println(string);
             }
             if (count == 0) {
                 System.out.println("Stop name not found, please try again.");
             }
+
         }
     }
 
