@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class main {
     public static void main(String[] args) {
-<<<<<<< HEAD
 
         boolean exitProgram = false;
         while (!exitProgram) {
@@ -38,9 +37,7 @@ public class main {
                 }
             }
         }
-
-=======
->>>>>>> search's
+        
     }
 
     public static void findShortestPath() {
