@@ -1,3 +1,4 @@
+import edu.princeton.cs.algs4.DijkstraSP;
 import edu.princeton.cs.algs4.DirectedEdge;
 import edu.princeton.cs.algs4.EdgeWeightedDigraph;
 import edu.princeton.cs.algs4.TST;
@@ -14,10 +15,12 @@ public class main {
 
     static EdgeWeightedDigraph dijkstraGraph;
     static DirectedEdge edge;
-    static ArrayList<Integer> busStops;
+    static ArrayList<Integer> stopID;
     static TST<String> tst;
     static ArrayList<String> stopTimesInfo;
+    static DijkstraSP dijkstraSP;
 
+    public static final String[] STREET_PREFIXES = new String[] {"FLAGSTOP", "WB", "NB", "SB", "EB"};
 
     public static void main(String[] args) {
 
@@ -38,16 +41,43 @@ public class main {
                 return;
             }
             File myObj = new File(filename);
-            Scanner myReader = new Scanner(myObj);
-            busStops = new ArrayList<>();
+            Scanner scanner = new Scanner(myObj);
+            scanner.nextLine();
+            stopID = new ArrayList<>();
             tst = new TST<>();
-            while (myReader.hasNextLine()) {
-                String[] line = myReader.nextLine().split(",");
-                busStops.add(Integer.parseInt(line[0]));
+
+            int count = 0;
+            while (scanner.hasNextLine()) {
+                String theLine = scanner.nextLine();
+
+                String[] line = scanner.nextLine().split(",");
+                stopID.add(Integer.parseInt(line[0]));
+
+                //cuts off the first 3 properties from the line
+                int index = 0;
+                for(int i = 0; i < 3; i++){
+                    index = theLine.indexOf(',');
+                }
+
+                String[] splitBySpaces = line[2].split(" ");
+                String streetPrefix = splitBySpaces[0];
+
+                // places the street prefix at the back of the stop name line
+                for (String prefix : STREET_PREFIXES){
+                    if (streetPrefix.equals(prefix)){
+                        line[2] = line[2].replace(streetPrefix, "").trim();
+                        line[2] = line[2] + " " + streetPrefix;
+                    }
+                }
+
+                // new reformatted line
+                String newLine = line[2] + theLine.substring(index) + line[0] + ", " +  line[1];
+                tst.put(newLine, Integer.toString(count));
+                count++;
             }
-            Collections.sort(busStops);
-            dijkstraGraph = new EdgeWeightedDigraph(busStops.size());
-            myReader.close();
+            Collections.sort(stopID);
+            dijkstraGraph = new EdgeWeightedDigraph(stopID.size());
+            scanner.close();
 
         } catch (FileNotFoundException e) {
             System.out.println("Error: File not found.");
