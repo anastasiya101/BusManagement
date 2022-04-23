@@ -1,5 +1,4 @@
 // library
-
 import edu.princeton.cs.algs4.DijkstraSP;
 import edu.princeton.cs.algs4.DirectedEdge;
 import edu.princeton.cs.algs4.EdgeWeightedDigraph;
