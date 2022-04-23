@@ -1,3 +1,5 @@
+// library
+
 import edu.princeton.cs.algs4.DijkstraSP;
 import edu.princeton.cs.algs4.DirectedEdge;
 import edu.princeton.cs.algs4.EdgeWeightedDigraph;
@@ -7,11 +9,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
 import java.util.Scanner;
+
 import static java.lang.Integer.parseInt;
 
 
+// @ author : Anastasiya Bogoslovskaya
 public class main {
 
     static EdgeWeightedDigraph dijkstraGraph;
@@ -34,38 +37,29 @@ public class main {
             System.out.println("Enter 1 to search for the shortest path between two bus stops of your choosing. \n" +
                     "Enter 2 to search for a certain bus stop by name/prefix. \n" +
                     "Enter 3 to search by arrival time. \n" +
-                    "Or type 'exit' to terminate the program.\n");
-            System.out.println("Please enter 1, 2, 3 or type 'exit'");
+                    "Or type 'exit' to terminate the program.\n\n" +
+                    "Please enter 1, 2, 3 or type 'exit'");
 
             Scanner scanner = new Scanner(System.in);
-            if (scanner.hasNextInt()) {
-                int input = scanner.nextInt();
-                switch (input) {
-                    case 1:
-                        findShortestPath();
-                        break;
-                    case 2:
-                        searchBusStopName();
-                        break;
-                    case 3:
-                        searchArrivalTime();
-                        break;
-                    default:
-                        System.out.println("Please enter a valid input value of the following integers 1, 2, 3 or type 'exit'.\n");
-                }
-            } else {
-                String input = scanner.next();
-                if (input.equalsIgnoreCase("exit")) {
+            String input = scanner.next();
+            switch (input) {
+                case "1" -> findShortestPath();
+                case "2" -> searchBusStopName();
+                case "3" -> searchArrivalTime();
+                case "exit" -> {
                     exitProgram = true;
                     System.out.println("The program has now terminated.");
-                } else {
-                    System.out.println("Please enter a valid input value of the following integers 1, 2, 3 or type 'exit'.\n");
                 }
+                default -> System.out.println("Please enter a valid input value of the following integers 1, 2, 3 or type 'exit'.\n");
             }
+            scanner.close();
         }
-
     }
 
+
+    /**
+     *
+     */
     public static void findShortestPath() {
         System.out.println("Please enter Bus Stop ID you would to depart from :  ");
         Scanner scanner = new Scanner(System.in);
@@ -103,6 +97,9 @@ public class main {
         }
     }
 
+    /**
+     *
+     */
     public static void searchBusStopName() {
         System.out.println("Please enter a stops full name or the first few characters of the bus stop you are searching for: ");
         Scanner scanner = new Scanner(System.in);
@@ -120,6 +117,9 @@ public class main {
         }
     }
 
+    /**
+     *
+     */
     public static void searchArrivalTime() {
 
         Scanner scanner = new Scanner(System.in);
