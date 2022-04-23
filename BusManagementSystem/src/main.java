@@ -89,7 +89,7 @@ public class main {
         if (scanner.hasNext()){
             String input = scanner.next();
             int count = 0;
-            /for (String string : TST.keysWithPrefix(input.toUpperCase())) {
+            for (String string : TST.keysWithPrefix(input.toUpperCase())) {
                 count++;
                 System.out.println(string);
             }
