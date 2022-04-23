@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Scanner;
+import static java.lang.Integer.parseInt;
 
 
 public class main {
@@ -96,20 +97,30 @@ public class main {
                 return;
             }
             File myObj = new File(filename);
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                String[] line = myReader.nextLine().split(",");
-                if (Objects.equals(line[2], "0")) {
-                    edge = new DirectedEdge(Integer.parseInt(line[0]), Integer.parseInt(line[1]), 2);
-                    dijkstraGraph.addEdge(edge);
+            Scanner scanner = new Scanner(myObj);
+            scanner.nextLine();
+
+            int weight;
+
+            while (scanner.hasNextLine()) {
+                String[] line = scanner.nextLine().split(",");
+
+                // if the transfer type is 0 then weight is 2
+                if (line[2].equals("0")) {
+                    weight = 2;
                 } else {
-                    DirectedEdge edge = new DirectedEdge(Integer.parseInt(line[0]),
-                            Integer.parseInt(line[1]),
-                            (Integer.parseInt(line[3]) / 100));
-                    dijkstraGraph.addEdge(edge);
+                    weight = (parseInt(line[3]))/100;
                 }
+                // get the values of the two stops
+                int firstValue = Collections.binarySearch(stopID, parseInt(line[0]));
+                int secondValue = Collections.binarySearch(stopID, parseInt(line[1]));
+
+                //add edge to the graph
+                DirectedEdge edge = new DirectedEdge(firstValue, secondValue, weight);
+                dijkstraGraph.addEdge(edge);
             }
-            myReader.close();
+            scanner.close();
+
         } catch (FileNotFoundException e) {
             System.out.println("Error: File not found.");
             e.printStackTrace();
