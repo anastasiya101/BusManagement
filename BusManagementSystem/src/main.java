@@ -18,7 +18,7 @@ public class main {
     static DirectedEdge edge;
     static ArrayList<Integer> stopID;
     static TST<String> tst;
-    static ArrayList<String> stopTimesInfo;
+    static ArrayList<String> stopTimes;
     static DijkstraSP dijkstraSP;
 
     public static final String[] STREET_PREFIXES = new String[] {"FLAGSTOP", "WB", "NB", "SB", "EB"};
@@ -138,26 +138,39 @@ public class main {
                 return;
             }
             File myObj = new File(filename);
-            Scanner myReader = new Scanner(myObj);
-            stopTimesInfo = new ArrayList<>();
+            Scanner scanner = new Scanner(myObj);
+            stopTimes = new ArrayList<>();
+            scanner.nextLine();
+            String line = scanner.nextLine();
 
-            String line = myReader.nextLine();
+            // String[] firstLine = readLineAddInfo(scanner);
             String[] firstLine = line.split(",");
-            stopTimesInfo.add(line);
 
-            while (myReader.hasNextLine()) {
 
-                String line2 = myReader.nextLine();
+            stopTimes.add(line);
+
+            while (scanner.hasNextLine()) {
+
+                String line2 = scanner.nextLine();
                 String[] nextLine = line2.split(",");
-                stopTimesInfo.add(line2);
+                stopTimes.add(line2);
 
-                if (Objects.equals(firstLine[0], nextLine[0])) {
-                    DirectedEdge edge = new DirectedEdge(Integer.parseInt(firstLine[3]), Integer.parseInt(nextLine[3]), 1);
+                if (firstLine[0].equals(nextLine[0])) {
+
+                    //get position of the bus stop
+                    int firstValue = Collections.binarySearch(stopID, parseInt(firstLine[3]));
+                    int secondValue = Collections.binarySearch(stopID, parseInt(nextLine[3]));
+
+                    //add the edge to the graph
+                    DirectedEdge edge = new DirectedEdge(firstValue, secondValue, 1);
                     dijkstraGraph.addEdge(edge);
                 }
-            }
 
-            myReader.close();
+                firstLine = nextLine;
+            }
+            Collections.sort(stopTimes);
+            scanner.close();
+
         } catch (FileNotFoundException e) {
             System.out.println("Error: File not found.");
             e.printStackTrace();
