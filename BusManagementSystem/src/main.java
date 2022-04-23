@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Scanner;
+
 import static java.lang.Integer.parseInt;
 
 
@@ -21,7 +22,7 @@ public class main {
     static ArrayList<String> stopTimes;
     static DijkstraSP dijkstraSP;
 
-    public static final String[] STREET_PREFIXES = new String[] {"FLAGSTOP", "WB", "NB", "SB", "EB"};
+    public static final String[] STREET_PREFIXES = new String[]{"FLAGSTOP", "WB", "NB", "SB", "EB"};
 
     public static void main(String[] args) {
 
@@ -56,7 +57,7 @@ public class main {
 
                 //cuts off the first 3 properties from the line
                 int index = 0;
-                for(int i = 0; i < 3; i++){
+                for (int i = 0; i < 3; i++) {
                     index = theLine.indexOf(',');
                 }
 
@@ -64,15 +65,15 @@ public class main {
                 String streetPrefix = splitBySpaces[0];
 
                 // places the street prefix at the back of the stop name line
-                for (String prefix : STREET_PREFIXES){
-                    if (streetPrefix.equals(prefix)){
+                for (String prefix : STREET_PREFIXES) {
+                    if (streetPrefix.equals(prefix)) {
                         line[2] = line[2].replace(streetPrefix, "").trim();
                         line[2] = line[2] + " " + streetPrefix;
                     }
                 }
 
                 // new reformatted line
-                String newLine = line[2] + theLine.substring(index) + line[0] + ", " +  line[1];
+                String newLine = line[2] + theLine.substring(index) + line[0] + ", " + line[1];
                 tst.put(newLine, Integer.toString(count));
                 count++;
             }
@@ -109,7 +110,7 @@ public class main {
                 if (line[2].equals("0")) {
                     weight = 2;
                 } else {
-                    weight = (parseInt(line[3]))/100;
+                    weight = (parseInt(line[3])) / 100;
                 }
                 // get the values of the two stops
                 int firstValue = Collections.binarySearch(stopID, parseInt(line[0]));
@@ -142,18 +143,19 @@ public class main {
             stopTimes = new ArrayList<>();
             scanner.nextLine();
             String line = scanner.nextLine();
-
-            // String[] firstLine = readLineAddInfo(scanner);
             String[] firstLine = line.split(",");
-
-
-            stopTimes.add(line);
 
             while (scanner.hasNextLine()) {
 
-                String line2 = scanner.nextLine();
-                String[] nextLine = line2.split(",");
-                stopTimes.add(line2);
+                String secondLine = scanner.nextLine();
+                String[] nextLine = secondLine.split(",");
+                String arrivalTime = nextLine[1].trim();
+                String[] arrivalTimeSplit = arrivalTime.split(":");
+
+                if (parseInt(arrivalTimeSplit[0]) <= 23 && parseInt(arrivalTimeSplit[0]) >= 0 &&
+                        parseInt(arrivalTimeSplit[1]) <= 59 &&
+                        parseInt(arrivalTimeSplit[2]) <= 59)
+                    stopTimes.add(secondLine);
 
                 if (firstLine[0].equals(nextLine[0])) {
 
@@ -176,7 +178,6 @@ public class main {
             e.printStackTrace();
         }
     }
-
 
 
 }
