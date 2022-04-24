@@ -73,7 +73,6 @@ public class main {
             System.out.println("Please enter the Bus Stop ID you would like to arrive at :  ");
             if (scanner.hasNextInt()) {
                 int arrivingStop = scanner.nextInt();
-                if (departingStop != arrivingStop) {
                 if (departingStop != arrivingStop ) {
                     if(departingStop >= 0 && departingStop <= 12375 &&
                         arrivingStop >= 0 && arrivingStop <= 12375) {
