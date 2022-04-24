@@ -41,19 +41,21 @@ public class main {
                     "Please enter 1, 2, 3 or type 'exit'");
 
             Scanner scanner = new Scanner(System.in);
-            if (scanner.hasNext()) {
+
+            if(scanner.hasNext()) {
                 String input = scanner.next();
+
                 switch (input) {
                     case "1" -> findShortestPath();
                     case "2" -> searchBusStopName();
                     case "3" -> searchArrivalTime();
-                    case "exit" -> {
+                    case "exit", "Exit", "EXIT" -> {
                         exitProgram = true;
                         System.out.println("The program has now terminated.");
                     }
                     default -> System.out.println("Please enter a valid input value of the following integers 1, 2, 3 or type 'exit'.\n");
                 }
-                //scanner.close()
+                //scanner.close();
             }
         }
         System.out.println("Thank you for using our Bus Management System.\n "
@@ -72,33 +74,32 @@ public class main {
             System.out.println("Please enter the Bus Stop ID you would like to arrive at :  ");
             if (scanner.hasNextInt()) {
                 int arrivingStop = scanner.nextInt();
-                if (departingStop != arrivingStop) {
-                    int departIndex = Collections.binarySearch(stopID, departingStop);
-                    int destIndex = Collections.binarySearch(stopID, arrivingStop);
+                if (departingStop != arrivingStop ) {
+                    if(departingStop >= 0 && departingStop <= 12375 &&
+                        arrivingStop >= 0 && arrivingStop <= 12375) {
+                        int departIndex = Collections.binarySearch(stopID, departingStop);
+                        int destIndex = Collections.binarySearch(stopID, arrivingStop);
 
                     System.out.println("Finding shortest path from bus stop " + departingStop + " to bus stop " + arrivingStop + "...");
-
-                    dijkstraSP = new DijkstraSP(dijkstraGraph, departIndex);
+                        dijkstraSP = new DijkstraSP(dijkstraGraph, departIndex);
 
                     if (dijkstraSP.hasPathTo(destIndex)) {
                         double lengthOfPath = dijkstraSP.distTo(destIndex);
                         System.out.println("Total Cost: " + lengthOfPath);
 
-                        for (DirectedEdge stop : dijkstraSP.pathTo(destIndex)) {
-                            System.out.println("Bus Stop ID: " + stopID.get(stop.to()) + "\t Cost : " + stop.weight() + "  (to get to from previous stop)");
-                        }
-                    } else {
-                        System.out.println("No path exists between these stops. ");
-                    }
-                } else {
+                            for (DirectedEdge stop : dijkstraSP.pathTo(destIndex)) {
+                                System.out.println("Bus Stop ID: " + stopID.get(stop.to()) + "\t Cost: " + stop.weight() + "  (to get to from previous stop)");
+                            }
+                        } else
+                            System.out.println("No path exists between these stops. ");
+                    } else
+                        System.out.println("Invalid bus stop ID.");
+                } else
                     System.out.println("The Shortest Path is 0 as your arrival and departing stops are the same.");
-                }
-            } else {
+            } else
                 System.out.println("Invalid bus stop ID.");
-            }
-        } else {
+        } else
             System.out.println("Invalid bus stop ID.");
-        }
     }
 
     /**
@@ -114,10 +115,8 @@ public class main {
                 count++;
                 System.out.println(string);
             }
-            if (count == 0) {
-                System.out.println("Stop name not found.");
-            }
-
+            if (count == 0)
+                System.out.println("Stop ID not found.");
         }
     }
 
@@ -291,7 +290,7 @@ public class main {
                     //get position of the bus stop
                     int firstValue = Collections.binarySearch(stopID, parseInt(firstLine[3]));
                     int secondValue = Collections.binarySearch(stopID, parseInt(nextLine[3]));
-
+                    
                     //Vertexes must be non-negative integers
                     if(firstValue >= 0 && secondValue >=0) {
                         //add the edge to the graph
