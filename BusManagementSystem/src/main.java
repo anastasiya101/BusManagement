@@ -63,13 +63,14 @@ public class main {
                 //scanner.close();
             }
         }
-        System.out.println("Thank you for using our Bus Management System.\n "
+        System.out.println("Thank you for using our Bus Management System.\n"
                 + "See you next time!");
     }
 
 
     /**
-     *
+     * This finds the shortest path between two stops that the user has inputted.
+     * Prints total cost for the journey and the cost between each subsequent stop.
      */
     public static void findShortestPath() {
         System.out.println("Please enter Bus Stop ID you would to depart from :  ");
@@ -109,6 +110,8 @@ public class main {
 
     /**
      *
+     * Searches the tst to find all compatable bus stop names that the user has inputted.
+     * works with full name, lowercase, uppercase and prefixes.
      */
     public static void searchBusStopName() {
         System.out.println("Please enter a stops full name or the first few characters of the bus stop you are searching for: ");
@@ -126,15 +129,15 @@ public class main {
     }
 
     /**
-     *
+     * Displays all the stops that have the arrival time that the user has inputted.
      */
     public static void searchArrivalTime() {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please enter arrival time in the format (hh:mm:ss) : ");
         if (scanner.hasNextLine()) {
-            String input = scanner.nextLine().trim(); // trim whitespace inputted by user
-            String[] inputtedTimes = input.split(":"); // split user input by ":"
+            String input = scanner.nextLine().trim();
+            String[] inputtedTimes = input.split(":");
 
             //checking a valid time has been entered
             if (inputtedTimes.length == 3 && parseInt(inputtedTimes[0]) <= 23 &&
