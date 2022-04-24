@@ -13,10 +13,14 @@ import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
+
 /**
  *
  * @ author : Anastasiya Bogoslovskaya
+ *
  */
+
+
 public class main {
 
     static EdgeWeightedDigraph dijkstraGraph;
@@ -30,7 +34,7 @@ public class main {
 
     public static void main(String[] args) {
 
-        readStops("stop_times.txt");
+        readStops("stops.txt");
         readTransfers("transfers.txt");
         readStopTimes("stop_times.txt");
 
@@ -44,9 +48,8 @@ public class main {
 
             Scanner scanner = new Scanner(System.in);
 
-            if(scanner.hasNext()) {
+            if (scanner.hasNext()) {
                 String input = scanner.next();
-
                 switch (input) {
                     case "1" -> findShortestPath();
                     case "2" -> searchBusStopName();
