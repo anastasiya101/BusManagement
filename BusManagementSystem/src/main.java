@@ -1,4 +1,5 @@
 // library
+
 import edu.princeton.cs.algs4.DijkstraSP;
 import edu.princeton.cs.algs4.DirectedEdge;
 import edu.princeton.cs.algs4.EdgeWeightedDigraph;
@@ -27,13 +28,13 @@ public class main {
 
     public static void main(String[] args) {
 
-        readStops("stops.txt");
+        readStops("/Users/Charmander/Documents/GitHub/BusManagement/BusManagementSystem/stop_times.txt");
         readTransfers("transfers.txt");
         readStopTimes("stop_times.txt");
 
         boolean exitProgram = false;
         while (!exitProgram) {
-            System.out.println("Enter 1 to search for the shortest path between two bus stops of your choosing. \n" +
+            System.out.println("\n Enter 1 to search for the shortest path between two bus stops of your choosing. \n" +
                     "Enter 2 to search for a certain bus stop by name/prefix. \n" +
                     "Enter 3 to search by arrival time. \n" +
                     "Or type 'exit' to terminate the program.\n\n" +
@@ -52,6 +53,8 @@ public class main {
                 default -> System.out.println("Please enter a valid input value of the following integers 1, 2, 3 or type 'exit'.\n");
             }
             scanner.close();
+            System.out.println("Thank you for using our Bus Management System.\n "
+                    + "See you next time.");
         }
     }
 
@@ -156,9 +159,9 @@ public class main {
      */
     public static void readStops(String filename) {
         try {
-            if (filename == null) {
+            if (filename == null)
                 return;
-            }
+
             File myObj = new File(filename);
             Scanner scanner = new Scanner(myObj);
             scanner.nextLine();
@@ -270,8 +273,8 @@ public class main {
                 String[] arrivalTimeSplit = arrivalTime.split(":");
 
                 if (parseInt(arrivalTimeSplit[0]) <= 23 && parseInt(arrivalTimeSplit[0]) >= 0 &&
-                        parseInt(arrivalTimeSplit[1]) <= 59 &&
-                        parseInt(arrivalTimeSplit[2]) <= 59)
+                        parseInt(arrivalTimeSplit[1]) <= 59 && parseInt(arrivalTimeSplit[2]) <= 59 &&
+                        arrivalTimeSplit.length == 3)
                     stopTimes.add(secondLine);
 
                 if (firstLine[0].equals(nextLine[0])) {
