@@ -74,29 +74,31 @@ public class main {
             if (scanner.hasNextInt()) {
                 int arrivingStop = scanner.nextInt();
                 if (departingStop != arrivingStop) {
-                    int departIndex = Collections.binarySearch(stopID, departingStop);
-                    int destIndex = Collections.binarySearch(stopID, arrivingStop);
+                if (departingStop != arrivingStop ) {
+                    if(departingStop >= 0 && departingStop <= 12375 &&
+                        arrivingStop >= 0 && arrivingStop <= 12375) {
+                        int departIndex = Collections.binarySearch(stopID, departingStop);
+                        int destIndex = Collections.binarySearch(stopID, arrivingStop);
 
-                    System.out.println("Finding shortest path from bus stop " + departingStop + " to bus stop " + arrivingStop + " ... ");
+                        System.out.println("Finding shortest path from bus stop " + departingStop + " to bus stop " + arrivingStop + " ... ");
 
-                    dijkstraSP = new DijkstraSP(dijkstraGraph, departIndex);
+                        dijkstraSP = new DijkstraSP(dijkstraGraph, departIndex);
 
-                    if (dijkstraSP.hasPathTo(destIndex)) {
-                        double lengthOfPath = dijkstraSP.distTo(destIndex);
-                        System.out.println("Total Cost: " + lengthOfPath);
+                        if (dijkstraSP.hasPathTo(destIndex)) {
+                            double lengthOfPath = dijkstraSP.distTo(destIndex);
+                            System.out.println("Total Cost: " + lengthOfPath);
 
-                        for (DirectedEdge stop : dijkstraSP.pathTo(destIndex)) {
-                            System.out.println("Bus Stop ID: " + stopID.get(stop.to()) + "\t Cost: " + stop.weight() + "  (to get to from previous stop)");
-                        }
-                    } else {
-                        System.out.println("No path exists between these stops. ");
-                    }
-                } else {
+                            for (DirectedEdge stop : dijkstraSP.pathTo(destIndex)) {
+                                System.out.println("Bus Stop ID: " + stopID.get(stop.to()) + "\t Cost: " + stop.weight() + "  (to get to from previous stop)");
+                            }
+                        } else
+                            System.out.println("No path exists between these stops. ");
+                    } else
+                        System.out.println("Invalid bus stop ID.");
+                } else
                     System.out.println("The Shortest Path is 0 as your arrival and departing stops are the same.");
-                }
-            } else {
+            } else
                 System.out.println("Invalid bus stop ID.");
-            }
         } else {
             System.out.println("Invalid bus stop ID.");
         }
