@@ -31,7 +31,7 @@ public class main {
 
     public static void main(String[] args) {
 
-        readStops("/Users/Charmander/Documents/GitHub/BusManagement/stops.txt");
+        readStops("stop_times.txt");
         readTransfers("transfers.txt");
         readStopTimes("stop_times.txt");
 
@@ -44,9 +44,8 @@ public class main {
                     "Please enter 1, 2, 3 or type 'exit'");
 
             Scanner scanner = new Scanner(System.in);
-            if(scanner.hasNext()) {
+            if (scanner.hasNext()) {
                 String input = scanner.next();
-
                 switch (input) {
                     case "1" -> findShortestPath();
                     case "2" -> searchBusStopName();
@@ -101,9 +100,8 @@ public class main {
                     System.out.println("The Shortest Path is 0 as your arrival and departing stops are the same.");
             } else
                 System.out.println("Invalid bus stop ID.");
-        } else {
+        } else
             System.out.println("Invalid bus stop ID.");
-        }
     }
 
     /**
@@ -120,7 +118,8 @@ public class main {
                 System.out.println(string);
             }
             if (count == 0) {
-                System.out.println("Stop ID not found, please try again.");
+
+                System.out.println("Stop name not found.");
             }
 
         }
