@@ -14,7 +14,8 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 /**
-* @ author : Anastasiya Bogoslovskaya
+ *
+ * @ author : Anastasiya Bogoslovskaya
  */
 public class main {
 
