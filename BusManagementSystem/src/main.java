@@ -14,7 +14,10 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 
-// @ author : Anastasiya Bogoslovskaya
+/** @ author : Anastasiya Bogoslovskaya
+ *
+ *
+ */
 public class main {
 
     static EdgeWeightedDigraph dijkstraGraph;
@@ -34,7 +37,7 @@ public class main {
 
         boolean exitProgram = false;
         while (!exitProgram) {
-            System.out.println("\n Enter 1 to search for the shortest path between two bus stops of your choosing. \n" +
+            System.out.println("\nEnter 1 to search for the shortest path between two bus stops of your choosing. \n" +
                     "Enter 2 to search for a certain bus stop by name/prefix. \n" +
                     "Enter 3 to search by arrival time. \n" +
                     "Or type 'exit' to terminate the program.\n\n" +
@@ -47,13 +50,13 @@ public class main {
                     case "1" -> findShortestPath();
                     case "2" -> searchBusStopName();
                     case "3" -> searchArrivalTime();
-                    case "exit" -> {
+                    case "exit", "Exit", "EXIT" -> {
                         exitProgram = true;
                         System.out.println("The program has now terminated.");
                     }
                     default -> System.out.println("Please enter a valid input value of the following integers 1, 2, 3 or type 'exit'.\n");
                 }
-                //scanner.close()
+                //scanner.close();
             }
         }
         System.out.println("Thank you for using our Bus Management System.\n "
@@ -72,33 +75,33 @@ public class main {
             System.out.println("Please enter the Bus Stop ID you would like to arrive at :  ");
             if (scanner.hasNextInt()) {
                 int arrivingStop = scanner.nextInt();
-                if (departingStop != arrivingStop) {
-                    int departIndex = Collections.binarySearch(stopID, departingStop);
-                    int destIndex = Collections.binarySearch(stopID, arrivingStop);
+                if (departingStop != arrivingStop ) {
+                    if(departingStop >= 0 && departingStop <= 12375 &&
+                        arrivingStop >= 0 && arrivingStop <= 12375) {
+                        int departIndex = Collections.binarySearch(stopID, departingStop);
+                        int destIndex = Collections.binarySearch(stopID, arrivingStop);
 
-                    System.out.println("Finding shortest path from bus stop " + departingStop + " to bus stop " + arrivingStop + "...");
+                        System.out.println("Finding shortest path from bus stop " + departingStop + " to bus stop " + arrivingStop + " ... ");
 
-                    dijkstraSP = new DijkstraSP(dijkstraGraph, departIndex);
+                        dijkstraSP = new DijkstraSP(dijkstraGraph, departIndex);
 
-                    if (dijkstraSP.hasPathTo(destIndex)) {
-                        double lengthOfPath = dijkstraSP.distTo(destIndex);
-                        System.out.println("Total Cost: " + lengthOfPath);
+                        if (dijkstraSP.hasPathTo(destIndex)) {
+                            double lengthOfPath = dijkstraSP.distTo(destIndex);
+                            System.out.println("Total Cost: " + lengthOfPath);
 
-                        for (DirectedEdge stop : dijkstraSP.pathTo(destIndex)) {
-                            System.out.println("Bus Stop ID: " + stopID.get(stop.to()) + "\t Cost : " + stop.weight() + "  (to get to from previous stop)");
-                        }
-                    } else {
-                        System.out.println("No path exists between these stops. ");
-                    }
-                } else {
+                            for (DirectedEdge stop : dijkstraSP.pathTo(destIndex)) {
+                                System.out.println("Bus Stop ID: " + stopID.get(stop.to()) + "\t Cost: " + stop.weight() + "  (to get to from previous stop)");
+                            }
+                        } else
+                            System.out.println("No path exists between these stops. ");
+                    } else
+                        System.out.println("Invalid bus stop ID.");
+                } else
                     System.out.println("The Shortest Path is 0 as your arrival and departing stops are the same.");
-                }
-            } else {
+            } else
                 System.out.println("Invalid bus stop ID.");
-            }
-        } else {
+        } else
             System.out.println("Invalid bus stop ID.");
-        }
     }
 
     /**
@@ -115,6 +118,7 @@ public class main {
                 System.out.println(string);
             }
             if (count == 0) {
+
                 System.out.println("Stop name not found.");
             }
 
