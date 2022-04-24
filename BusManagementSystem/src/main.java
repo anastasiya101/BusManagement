@@ -34,7 +34,7 @@ public class main {
 
         boolean exitProgram = false;
         while (!exitProgram) {
-            System.out.println("\n Enter 1 to search for the shortest path between two bus stops of your choosing. \n" +
+            System.out.println("\nEnter 1 to search for the shortest path between two bus stops of your choosing. \n" +
                     "Enter 2 to search for a certain bus stop by name/prefix. \n" +
                     "Enter 3 to search by arrival time. \n" +
                     "Or type 'exit' to terminate the program.\n\n" +
