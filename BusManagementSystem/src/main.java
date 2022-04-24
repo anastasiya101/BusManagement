@@ -240,9 +240,12 @@ public class main {
                 int firstValue = Collections.binarySearch(stopID, parseInt(line[0]));
                 int secondValue = Collections.binarySearch(stopID, parseInt(line[1]));
 
-                //add edge to the graph
-                edge = new DirectedEdge(firstValue, secondValue, weight);
-                dijkstraGraph.addEdge(edge);
+                //Vertexes must be non-negative integers
+                if(firstValue >= 0 && secondValue >=0) {
+                    //add edge to the graph
+                    edge = new DirectedEdge(firstValue, secondValue, weight);
+                    dijkstraGraph.addEdge(edge);
+                }
             }
             scanner.close();
 
@@ -284,13 +287,17 @@ public class main {
 
                 if (firstLine[0].equals(nextLine[0])) {
 
+
                     //get position of the bus stop
                     int firstValue = Collections.binarySearch(stopID, parseInt(firstLine[3]));
                     int secondValue = Collections.binarySearch(stopID, parseInt(nextLine[3]));
 
-                    //add the edge to the graph
-                    edge = new DirectedEdge(firstValue, secondValue, 1);
-                    dijkstraGraph.addEdge(edge);
+                    //Vertexes must be non-negative integers
+                    if(firstValue >= 0 && secondValue >=0) {
+                        //add the edge to the graph
+                        edge = new DirectedEdge(firstValue, secondValue, 1);
+                        dijkstraGraph.addEdge(edge);
+                    }
                 }
 
                 firstLine = nextLine;
