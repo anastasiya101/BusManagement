@@ -13,8 +13,9 @@ import java.util.Scanner;
 
 import static java.lang.Integer.parseInt;
 
-
-// @ author : Anastasiya Bogoslovskaya
+/**
+* @ author : Anastasiya Bogoslovskaya
+ */
 public class main {
 
     static EdgeWeightedDigraph dijkstraGraph;
@@ -290,7 +291,7 @@ public class main {
                     //get position of the bus stop
                     int firstValue = Collections.binarySearch(stopID, parseInt(firstLine[3]));
                     int secondValue = Collections.binarySearch(stopID, parseInt(nextLine[3]));
-                    
+
                     //Vertexes must be non-negative integers
                     if(firstValue >= 0 && secondValue >=0) {
                         //add the edge to the graph
