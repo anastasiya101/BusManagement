@@ -28,7 +28,7 @@ public class main {
 
     public static void main(String[] args) {
 
-        readStops("/Users/Charmander/Documents/GitHub/BusManagement/BusManagementSystem/stop_times.txt");
+        readStops("stop_times.txt");
         readTransfers("transfers.txt");
         readStopTimes("stop_times.txt");
 
@@ -41,21 +41,23 @@ public class main {
                     "Please enter 1, 2, 3 or type 'exit'");
 
             Scanner scanner = new Scanner(System.in);
-            String input = scanner.next();
-            switch (input) {
-                case "1" -> findShortestPath();
-                case "2" -> searchBusStopName();
-                case "3" -> searchArrivalTime();
-                case "exit" -> {
-                    exitProgram = true;
-                    System.out.println("The program has now terminated.");
+            if (scanner.hasNext()) {
+                String input = scanner.next();
+                switch (input) {
+                    case "1" -> findShortestPath();
+                    case "2" -> searchBusStopName();
+                    case "3" -> searchArrivalTime();
+                    case "exit" -> {
+                        exitProgram = true;
+                        System.out.println("The program has now terminated.");
+                    }
+                    default -> System.out.println("Please enter a valid input value of the following integers 1, 2, 3 or type 'exit'.\n");
                 }
-                default -> System.out.println("Please enter a valid input value of the following integers 1, 2, 3 or type 'exit'.\n");
+                //scanner.close()
             }
-            scanner.close();
-            System.out.println("Thank you for using our Bus Management System.\n "
-                    + "See you next time.");
         }
+        System.out.println("Thank you for using our Bus Management System.\n "
+                + "See you next time!");
     }
 
 
@@ -74,13 +76,13 @@ public class main {
                     int departIndex = Collections.binarySearch(stopID, departingStop);
                     int destIndex = Collections.binarySearch(stopID, arrivingStop);
 
-                    System.out.println("Finding shortest path from bus stop " + departingStop + " to bus stop " + arrivingStop);
+                    System.out.println("Finding shortest path from bus stop " + departingStop + " to bus stop " + arrivingStop + "...");
 
                     dijkstraSP = new DijkstraSP(dijkstraGraph, departIndex);
 
                     if (dijkstraSP.hasPathTo(destIndex)) {
                         double lengthOfPath = dijkstraSP.distTo(destIndex);
-                        System.out.println("Cost: " + lengthOfPath);
+                        System.out.println("Total Cost: " + lengthOfPath);
 
                         for (DirectedEdge stop : dijkstraSP.pathTo(destIndex)) {
                             System.out.println("Bus Stop ID: " + stopID.get(stop.to()) + "\t Cost : " + stop.weight() + "  (to get to from previous stop)");
@@ -113,7 +115,7 @@ public class main {
                 System.out.println(string);
             }
             if (count == 0) {
-                System.out.println("Stop name not found, please try again.");
+                System.out.println("Stop name not found.");
             }
 
         }
@@ -156,6 +158,7 @@ public class main {
      * Reads in the stops from the stops.txt file
      *
      * @param filename the file to be read
+     * @throws IllegalArgumentException if the input file is not found
      */
     public static void readStops(String filename) {
         try {
@@ -172,7 +175,7 @@ public class main {
             while (scanner.hasNextLine()) {
                 String theLine = scanner.nextLine();
 
-                String[] line = scanner.nextLine().split(",");
+                String[] line = theLine.split(",");
                 stopID.add(Integer.parseInt(line[0]));
 
                 //cuts off the first 3 properties from the line
@@ -211,6 +214,7 @@ public class main {
      * Reads in the transfers from the transfers.txt file
      *
      * @param filename the file to be read
+     * @throws IllegalArgumentException if the input file is not found
      */
     public static void readTransfers(String filename) {
         try {
@@ -237,7 +241,7 @@ public class main {
                 int secondValue = Collections.binarySearch(stopID, parseInt(line[1]));
 
                 //add edge to the graph
-                DirectedEdge edge = new DirectedEdge(firstValue, secondValue, weight);
+                edge = new DirectedEdge(firstValue, secondValue, weight);
                 dijkstraGraph.addEdge(edge);
             }
             scanner.close();
@@ -252,6 +256,7 @@ public class main {
      * Reads in the stop times from the stops_times.txt file
      *
      * @param filename the file to be read
+     * @throws IllegalArgumentException if the input file is not found
      */
     public static void readStopTimes(String filename) {
         try {
@@ -284,7 +289,7 @@ public class main {
                     int secondValue = Collections.binarySearch(stopID, parseInt(nextLine[3]));
 
                     //add the edge to the graph
-                    DirectedEdge edge = new DirectedEdge(firstValue, secondValue, 1);
+                    edge = new DirectedEdge(firstValue, secondValue, 1);
                     dijkstraGraph.addEdge(edge);
                 }
 
